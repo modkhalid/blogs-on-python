@@ -7,7 +7,7 @@
 
         {% if post.published_date %}
             <div class="date postdate">
-                {{ post.published_date }}
+                <h2><b>{{ post.published_date }}</b></h2>
             </div>
 
         {% else %}
@@ -25,7 +25,9 @@
 
 
   <hr>
-  <a class="btn btn-primary btn-comment" href="{% url 'post_comment' pk=post.pk %}">Add comment</a>
+ 
+  <a class="btn btn-primary" href="{% url 'post_comment' pk=post.pk %}" >Add comment</a>
+  
   <div class="container">
 
 

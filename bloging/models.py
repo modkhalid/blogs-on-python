@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-
+from django.contrib.auth.models import User
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey(User,on_delete=models.PROTECT)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -27,7 +27,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey('bloging.Post', related_name='comments')
+    post = models.ForeignKey('bloging.Post', related_name='comments',on_delete=models.PROTECT)
     author = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)

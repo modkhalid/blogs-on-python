@@ -1,9 +1,9 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import CreateView,DeleteView,UpdateView,ListView,DetailView,TemplateView
 from django.utils import timezone
-from django.core.urlresolvers import reverse_lazy
-from bloging.models import Post,Comment
-from bloging.forms import PostForm,CommentForm
+from django.urls import reverse_lazy
+from .models import Post,Comment
+from .forms import PostForm,CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -26,14 +26,14 @@ class PostDetailView(DetailView):
     model=Post
 
 class PostCreateView(LoginRequiredMixin,CreateView):
-    login_url='/login/'
+    login_url='/accounts/login/'
     redirect_field_name='bloging/post_detail.html'
     form_class=PostForm
     model=Post
 
     
 class PostUpdateView(LoginRequiredMixin,UpdateView):
-    login_url='/login/'
+    login_url='/accounts/login/'
     redirect_field_name='bloging/post_detail.html'
     form_class=PostForm
     model=Post
@@ -41,10 +41,10 @@ class PostUpdateView(LoginRequiredMixin,UpdateView):
 
 class PostDeleteView(LoginRequiredMixin,DeleteView):
     model=Post
-    success_url=reverse_lazy('list')
+    success_url=reverse_lazy('post_list')
 
 class PostDraftView(LoginRequiredMixin,ListView):
-    login_url='/login/'
+    login_url='/accounts/login/'
     redirect_field_name='bloging/post_list.html'
     model=Post
 
